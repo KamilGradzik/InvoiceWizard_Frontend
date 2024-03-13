@@ -14,16 +14,16 @@ const LoginView:React.FC = ():ReactElement => {
             <div className="login-view">
                 <Typography variant={"h1"} gutterBottom>InvoiceWizard</Typography>
                 <div className="login-view-form">
-                    <form onSubmit={(e:React.ChangeEvent<HTMLFormElement>)=>SubmitLogin(e)}>
+                    <form onSubmit={(e:React.ChangeEvent<HTMLFormElement>)=>SubmitLogin(e)} noValidate={true}>
                         <FormControl className="login-view-form-control">
-                            <TextField type={"text"} label={"E-mail"} variant={"standard"} />
+                            <TextField type={"text"} label={"E-mail"} autoComplete={"off"} placeholder={"Wprowadź e-mail"} variant={"standard"} />
                         </FormControl>
                         <FormControl className="login-view-form-control">
-                            <TextField type={"password"} label={"Hasło"} variant={"standard"} />
+                            <TextField type={"password"} label={"Hasło"} placeholder={"Wprowadź hasło"} variant={"standard"} />
                         </FormControl>
                         <FormControl className="login-view-form-control login-options">
                             <FormControlLabel control={<Checkbox />} label="Zapamiętaj mnie" />
-                            <a href="#">Zresetuj Hasło</a>
+                            <a href="/">Zresetuj Hasło</a>
                         </FormControl>
                         <FormControl className="login-view-form-submit">
                             <Button variant={"contained"} type={"submit"}>Zaloguj</Button>
@@ -33,7 +33,7 @@ const LoginView:React.FC = ():ReactElement => {
                 </div>
                 <div className="login-view-register">
                     <span>Potrzebujesz konta?&nbsp;</span>
-                    <span><a href="#">Zarejestruj się</a></span>
+                    <span><a href="/">Zarejestruj się</a></span>
                 </div>
             </div>
         </div>
