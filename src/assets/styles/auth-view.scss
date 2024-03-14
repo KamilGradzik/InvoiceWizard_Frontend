@@ -1,54 +1,74 @@
 @import './variables.scss';
 
-.login-view-wrapper{
+.AuthView-wrapper{
     width: 100%;
     height: 100%;
     display: flex;
+    // flex-direction: column;
     align-items: center;
     justify-content: center;
-    .login-view{
-        max-width: 600px;
+    .AuthView{
+        max-width: 700px;
         width: 100%;
-        h1{
-            text-align: center;
-            font-weight: 500;
+        .AuthView-logo{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .AuthView-logoImage{
+                height: 250px;
+                width: 250px;
+                margin-bottom: 15px;
+            }
+            .AuthView-logoTitle{
+                font-family: $logo-font;
+                font-weight: 100;
+                letter-spacing: 15px;
+                
+            }
         }
-        .login-view-form{
+        .AuthView-form{
             color: $main-color;
-            padding: 0px 25px;
-            .login-view-form-control{
+            padding: 0px 50px;
+            .AuthView-formControl{
                 margin-bottom: 24px;
                 .MuiFormControl-root{
                     width: 100%;
                     .MuiFormLabel-root{
                         font-size: 24px;
                         &.MuiInputLabel-shrink{
-                            transform: translate(0, -10px) scale(0.75);
+                            transform: translate(0, -8px) scale(0.75);
                         }   
                     }
                     .MuiInputBase-root{
                         color: $main-color;
                         font-size: 24px;
+                        input{
+                            padding: 5px;
+                        }
                     }
                 }
-                &.login-options{
+                &.AuthView-loginOptions{
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
                     a{
                         color: rgba(0, 0, 0, 0.6);
                         &:hover{
-                            color: $main-color;
+                            color: $primary-color-hover;
+                        }
+                        &:active{
+                            color: $primary-color-active;
                         }
                     }
                 }
             }
-            .login-view-form-submit{
+            .AuthView-formSubmit{
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 button{
                     color: $font-color-main;
+                    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
                     font-size: 20px;
                     padding: 10px 40px;
                     background-color: $main-color;
@@ -61,10 +81,19 @@
                 margin: 25px 0px;
             }
         }
-        .login-view-register{
+        .AuthView-registerSwitch{
             display: flex;
             align-items: center;
             justify-content: center;
+            a{
+                color: $primary-color;
+                &:hover{
+                    color: $primary-color-hover;
+                }
+                &:active{
+                    color: $primary-color-active;
+                }
+            }
         }
     }
 }
