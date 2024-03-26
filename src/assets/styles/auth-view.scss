@@ -45,7 +45,9 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    a{
+                    .AuthView-PasswordReset{
+                        cursor: pointer;
+                        text-decoration: underline;
                         color: rgba(0, 0, 0, 0.6);
                         &:hover{
                             color: $primary-color-hover;

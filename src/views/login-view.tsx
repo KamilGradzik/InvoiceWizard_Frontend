@@ -1,14 +1,18 @@
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import TextField from '@mui/material/TextField';
 import "../assets/styles/auth-view.scss";
 import logoDark from "../assets/images/logo_dark.svg";
 import { FormControl } from "@mui/base";
 import { Checkbox, FormControlLabel, Button, Typography, Divider } from "@mui/material";
+import { Controller, useForm } from "react-hook-form";
+import ILogin from "../models/login-form";
+import ResetPasswordModal from "../components/reset-password-modal/reset-password-modal";
 
 const LoginView:React.FC = ():ReactElement => {
-    const SubmitLogin = (event:React.ChangeEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log("Event fired!")
+    const { control, handleSubmit, formState:{errors } } = useForm<ILogin>(({mode:'onChange'}))
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const SubmitLogin = (data: ILogin) => {
+        //TO DO - API CONNECTION
     }
     return(
         <div className="AuthView-wrapper">
@@ -18,16 +22,63 @@ const LoginView:React.FC = ():ReactElement => {
                     <Typography variant={"h1"} className="AuthView-logoTitle" gutterBottom>InvoiceWizard</Typography>
                 </div>
                 <div className="AuthView-form">
-                    <form onSubmit={(e:React.ChangeEvent<HTMLFormElement>)=>SubmitLogin(e)} noValidate={true}>
+                    <form onSubmit={handleSubmit(SubmitLogin)} noValidate={true}>
                         <FormControl className="AuthView-formControl">
-                            <TextField type={"text"} label={"E-mail"} autoComplete={"off"} placeholder={"Wprowadź e-mail"} variant={"standard"}  />
+                            <Controller 
+                                name={"email"}
+                                control={control}
+                                defaultValue=""
+                                rules={{
+                                    required: "Pole jest wymagane!",
+                                    pattern: { value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, message:"Email jest nie poprawny!"}
+                                }}
+                                render={({field}: {field: any}) => (
+                                    <TextField
+                                        {...field}
+                                        type={"text"} 
+                                        label={"E-mail"} 
+                                        autoComplete={"off"} 
+                                        placeholder={"Wprowadź e-mail"} 
+                                        variant={"standard"}
+                                        error={!!errors.email}
+                                        helperText={errors.email && errors.email.message}/>
+                                )}
+                            />
                         </FormControl>
                         <FormControl className="AuthView-formControl">
-                            <TextField type={"password"} label={"Hasło"} placeholder={"Wprowadź hasło"} variant={"standard"} />
+                            <Controller 
+                                name={"password"}
+                                control={control}
+                                defaultValue=""
+                                rules={{
+                                    required: "Pole jest wymagane!",
+                                }}
+                                render={({field}: {field: any}) => (
+                                    <TextField 
+                                        {...field}
+                                        type={"password"} 
+                                        label={"Hasło"} 
+                                        placeholder={"Wprowadź hasło"} 
+                                        variant={"standard"} 
+                                        error={!!errors.password}
+                                        helperText={errors.password && errors.password.message}
+                                        />
+                                )}
+                            />
                         </FormControl>
                         <FormControl className="AuthView-formControl AuthView-loginOptions">
-                            <FormControlLabel control={<Checkbox />} label="Zapamiętaj mnie" />
-                            <a href="/">Zresetuj Hasło</a>
+                            <Controller 
+                                name={"remember_me"}
+                                control={control}
+                                defaultValue={false}
+                                render={({field}: {field: any}) => (
+                                    <FormControlLabel 
+                                        control={<Checkbox {...field}/>} 
+                                        label="Zapamiętaj mnie" 
+                                    />
+                                )}
+                            />
+                            <span className="AuthView-PasswordReset" onClick={()=>setModalOpen(true)}>Zresetuj Hasło</span>
                         </FormControl>
                         <FormControl className="AuthView-formSubmit">
                             <Button variant={"contained"} type={"submit"}>Zaloguj</Button>
@@ -40,6 +91,7 @@ const LoginView:React.FC = ():ReactElement => {
                     <span><a href="/">Zarejestruj się</a></span>
                 </div>
             </div>
+            <ResetPasswordModal open={modalOpen} handleClose={setModalOpen} />
         </div>
     )
 }
