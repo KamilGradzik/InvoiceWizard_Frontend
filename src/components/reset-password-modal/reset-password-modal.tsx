@@ -1,11 +1,11 @@
-import { Box, Button, FormControl, Modal, TextField, Typography } from "@mui/material";
+import { Box, Button, Divider, FormControl, Modal, TextField, Typography } from "@mui/material";
 import { Dispatch, ReactElement } from "react";
 import "./reset-password-modal.scss"
 import { Controller, useForm } from "react-hook-form";
 import IResetPassword from "../../models/reset-password";
 
 const ResetPasswordModal:React.FC<{open:boolean, handleClose:Dispatch<boolean>}> = ({...props}):ReactElement => {
-    const { control, handleSubmit, formState:{errors}, getValues } = useForm<IResetPassword>()
+    const { control, handleSubmit, formState:{errors}, getValues, reset } = useForm<IResetPassword>()
     const SubmitPasswordReset = (data: IResetPassword) => {
         console.log(data)
     }
@@ -14,13 +14,14 @@ const ResetPasswordModal:React.FC<{open:boolean, handleClose:Dispatch<boolean>}>
         return value === password || 'Hasła nie są identyczne!';
     };
     return(
-        <Modal open={props.open} onClose={() => {props.handleClose(false)}}>
+        <Modal open={props.open} onClose={() => {props.handleClose(false); reset()}}>
             <Box className="ResetPassword-Box">
-                <div className="ResetPassword-modal-Title">
-                    <Typography id="ResetPassword-modal-title" variant="h6" component="h2">
+                <div className="ResetPassword-modal-title">
+                    <Typography id="ResetPassword-modal-title-text" variant="h6" component="h2">
                         Resetowanie hasła
                     </Typography>
                 </div>
+                <Divider />
                 <div className="ResetPassword-modal-body">
                     <form className="ResetPassword-form" noValidate={true} onSubmit={handleSubmit(SubmitPasswordReset)}>
                         <FormControl className="ResetPassword-form-formControl">
@@ -52,6 +53,7 @@ const ResetPasswordModal:React.FC<{open:boolean, handleClose:Dispatch<boolean>}>
                                 defaultValue=""
                                 rules={{
                                     required: "Pole jest wymagane!",
+                                    pattern: {value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/, message: "Hasło nie jest bezpieczne. Wymagane min. 8 znaków, conajmniej 1 mała i duża litera, 1 cyfra oraz znak specjalny!" }
                                 }}
                                 render={({field}: {field: any}) => (
                                     <TextField
@@ -81,7 +83,7 @@ const ResetPasswordModal:React.FC<{open:boolean, handleClose:Dispatch<boolean>}>
                                         type={"password"} 
                                         label={"Potwierdź hasło"} 
                                         autoComplete={"off"} 
-                                        placeholder={"Wprowadź nowe hasło"} 
+                                        placeholder={"Potwierdź nowe hasło"} 
                                         variant={"standard"}
                                         error={!!errors.new_repeated_password}
                                         helperText={errors.new_repeated_password && errors.new_repeated_password.message}/>
@@ -89,7 +91,7 @@ const ResetPasswordModal:React.FC<{open:boolean, handleClose:Dispatch<boolean>}>
                             />
                         </FormControl>
                         <FormControl className="ResetPassword-form-formSubmit">
-                            <Button variant={"contained"} type={"submit"}>Zaloguj</Button>
+                            <Button variant={"contained"} type={"submit"}>Resetuj</Button>
                         </FormControl>
                     </form>
                 </div>
