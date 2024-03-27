@@ -72,6 +72,9 @@
                         background-color: $main-color-hover;
                     }
                 }
+                &.AuthView-Register{
+                    padding-top: 24px;
+                }
             }
             hr{
                 margin: 25px 0px;
