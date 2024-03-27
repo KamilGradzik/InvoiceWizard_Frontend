@@ -1,13 +1,19 @@
+
+@import './variables.scss';
+*{
+  box-sizing: border-box;
+}
 body {
+  background-color: $bacground-color;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  font-family: $default-font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  #main{
+    height: 100%;
+    width: 100%;
+  }
 }
