@@ -46,7 +46,7 @@ const RegisterView:React.FC = ():ReactElement => {
                                         type={"text"} 
                                         label={"E-mail"} 
                                         autoComplete={"off"} 
-                                        placeholder={"Wprowadź swój e-mail"} 
+                                        placeholder={"Wprowadź e-mail"} 
                                         variant={"standard"}
                                         error={!!errors.email}
                                         helperText={errors.email && errors.email.message}/>
@@ -89,7 +89,7 @@ const RegisterView:React.FC = ():ReactElement => {
                                         {...field}
                                         type={"password"} 
                                         label={"Hasło"} 
-                                        placeholder={"Wprowadź swoje hasło"} 
+                                        placeholder={"Wprowadź hasło"} 
                                         variant={"standard"} 
                                         error={!!errors.password}
                                         helperText={errors.password && errors.password.message}
